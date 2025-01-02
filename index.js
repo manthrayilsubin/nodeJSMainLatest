@@ -47,7 +47,7 @@ app.get('/updateMalParts', async (req, res) => {
     const result = await db.sql`
     USE DATABASE malGreekNew;`
     //db.sql(,);
-    const result2=await db.sql(`update "Interlinear - Matthew" set malgrk ="${malParts}" where book ="${vrspntrparts[0]}" and chapter="${vrspntrparts[1]}" and verseNum="${vrspntrparts[2]}";`)
+    const result2=await db.sql(`update "greekengmal" set malgrk ="${malParts}" where book ="${vrspntrparts[0]}" and chapter="${vrspntrparts[1]}" and verseNum="${vrspntrparts[2]}";`)
     console.log(result2)
     res.end();
 });
@@ -58,7 +58,7 @@ app.get('/getVerse', async (req, res) => {
     {
         const result = await db.sql`
         USE DATABASE malGreekNew; 
-            SELECT * FROM "Interlinear - Matthew" LIMIT 10;`
+            SELECT * FROM "greekengmal" LIMIT 1000;`
         //jsonResult=JSON.parse(result)
         jsonResult=result
     }
