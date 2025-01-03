@@ -68,15 +68,15 @@ app.get('/getVerse', async (req, res) => {
         jsonResult=result
     }
 
-    counter=0;
+    counter1=0;
     flag=0;
     jsonResult.forEach(function(item) {
 
         //console.log(item)
-        counter=counter+1;
+        counter1=counter1+1;
         if(flag==1)
             return;
-        if(counter==verseCounter)
+        if(counter1==verseCounter)
         {
             malVerse=item.Mal;
             grkVerse=item.GreekV;

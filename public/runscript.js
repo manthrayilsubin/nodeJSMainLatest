@@ -57,7 +57,7 @@ $('#mal').children().each(function () {
    // alert($(this).text());
     //alert($(this).attr("id"));
     //finalId=finalId+$(this).attr("id");
-     //alert("word"+counter);
+     console.log("word"+counter);
     //console.log(counter)
     appended="No";
     if(counter<=targNum[1])
