@@ -52,13 +52,18 @@ app.get('/updateMalParts', async (req, res) => {
     res.end();
 });
 
+app.get('/clearVerse', async (req, res) => {
+    verseCounter=1;
+    res.redirect('/getVerse');
+})
 
 app.get('/getVerse', async (req, res) => {
+    
     if(verseCounter==1)
     {
         const result = await db.sql`
         USE DATABASE malGreekNew; 
-            SELECT * FROM "greekengmal" LIMIT 1000;`
+            SELECT * FROM "greekengmal";`
         //jsonResult=JSON.parse(result)
         jsonResult=result
     }
@@ -112,7 +117,7 @@ app.get('/getVerse', async (req, res) => {
 
 
 
-    let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><a href="getVerse">Next Verse</a><br/>'
+    let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><a href="getVerse">Next Verse</a><br/><a href="clearVerse">Clear Progress</a><br/>'
     let htmlEnd='<script src="public/runscript.js"></script></body></html>'
 
     let htmlData='<p id="versePointer">#vrspointer</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><button id="svemalgrk">save Part</button>'
