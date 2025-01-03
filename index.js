@@ -117,7 +117,7 @@ app.get('/getVerse', async (req, res) => {
 
 
 
-    let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><a href="getVerse">Next Verse</a><br/><a href="clearVerse">Clear Progress</a><br/>'
+    let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><br/>click on top of word to slice<br/><a href="getVerse">Next Verse</a><br/><a href="clearVerse">Clear Progress</a><br/>'
     let htmlEnd='<script src="public/runscript.js"></script></body></html>'
 
     let htmlData='<p id="versePointer">#vrspointer</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><button id="svemalgrk">save Part</button>'
