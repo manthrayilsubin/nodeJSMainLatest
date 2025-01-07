@@ -60,7 +60,7 @@ app.get('/clearVerse', async (req, res) => {
 
 app.get('/showVerse', async (req, res) => {
     
-    //need to make changes here to accomodate for show mal greek map.
+    //refer this https://jsfiddle.net/subinbabu_009/o9Lujbw4/22/ for implementation
         const result = await db.sql`
         USE DATABASE malGreekNew; 
             SELECT * FROM "greekengmal where malgrk is not null ";`
