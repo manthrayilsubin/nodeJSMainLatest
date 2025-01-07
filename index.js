@@ -10,6 +10,7 @@ const db = new Database('sqlitecloud://ci35rlwsnz.sqlite.cloud:8860/'+tblKey);
 let htmlStr = 'Protion For Today:<br/>';
 let htmlDatMal=""
 let verseCounter=1;
+let verseShowCounter=1;
 let versepointer="";
 let htmljquery='<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>';
 let htmljqueryui='<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>';
@@ -56,6 +57,21 @@ app.get('/clearVerse', async (req, res) => {
     verseCounter=1;
     res.redirect('/getVerse');
 })
+
+app.get('/showVerse', async (req, res) => {
+    
+    //need to make changes here to accomodate for show mal greek map.
+        const result = await db.sql`
+        USE DATABASE malGreekNew; 
+            SELECT * FROM "greekengmal where malgrk is not null ";`
+        //jsonResult=JSON.parse(result)
+        jsonResult=result
+    
+
+    counter1=0;
+    flag=0;
+
+    })
 
 app.get('/getVerse', async (req, res) => {
     
