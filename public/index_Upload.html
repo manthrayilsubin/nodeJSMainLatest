@@ -1,32 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Summarizer</title>
+    <title>Upload PDF to Google Drive</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .upload-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        #status {
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload PDF for Summarization</h1>
-    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="pdfFile" accept=".pdf" required>
-        <button type="submit">Upload and Summarize</button>
-    </form>
-    <div id="summaryOutput"></div>
+    <div class="upload-container">
+        <h2>Upload PDF to Google Drive</h2>
+        <input type="file" id="pdfFile" accept=".pdf">
+        <br><br>
+        <button onclick="uploadFile()">Upload</button>
+        <div id="status"></div>
+    </div>
 
     <script>
-        document.getElementById('uploadForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            fetch(this.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('summaryOutput').innerText = data;
-            })
-            .catch(error => console.error('Error:', error));
-        });
+        async function uploadFile() {
+            const fileInput = document.getElementById('pdfFile');
+            const status = document.getElementById('status');
+            
+            if (!fileInput.files[0]) {
+                status.textContent = 'Please select a PDF file';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append('pdf', file);
+
+            status.textContent = 'Uploading...';
+            
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                if (response.ok) {
+                    status.textContent = 'Upload successful! File ID: ' + result.fileId;
+                } else {
+                    status.textContent = 'Error: ' + result.error;
+                }
+            } catch (error) {
+                status.textContent = 'Error: ' + error.message;
+            }
+        }
     </script>
 </body>
 </html>
