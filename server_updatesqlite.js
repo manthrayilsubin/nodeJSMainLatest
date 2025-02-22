@@ -42,7 +42,7 @@ function decrypt(text) {
 const oauth2Client = new google.auth.OAuth2(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
-    'https://20e600a8-a4ff-405a-b622-ca805689c34d-00-1nusdwsb1ve6x.worf.replit.dev/oauth2callback',   
+    'http://localhost:50100/oauth2callback',   
 );
 
 // Token file path
@@ -211,7 +211,7 @@ app.get('/', (req, res) => {
 app.get('/auth', (req, res) => {
     const url = oauth2Client.generateAuthUrl({
         scope: scopes,
-        redirect_uri: 'https://bnkpassupdater.onrender.com/oauth2callback',
+        redirect_uri: 'http://localhost:50100/oauth2callback',
         access_type: 'offline',  // Ensures refresh token is returned
         prompt: 'consent'        // Forces consent screen to get refresh token
     });
