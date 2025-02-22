@@ -16,10 +16,10 @@ const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 // Google Drive API credentials (get these from Google Cloud Console)
-const CLIENT_ID = '';
-const CLIENT_SECRET = '';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = 'https://20e600a8-a4ff-405a-b622-ca805689c34d-00-1nusdwsb1ve6x.worf.replit.dev/callback';
-const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
+const SCOPES = ['https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.metadata'];
 
 const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
