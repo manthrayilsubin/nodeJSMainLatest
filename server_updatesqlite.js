@@ -211,7 +211,7 @@ app.get('/', (req, res) => {
 app.get('/auth', (req, res) => {
     const url = oauth2Client.generateAuthUrl({
         scope: scopes,
-        redirect_uri: 'https://20e600a8-a4ff-405a-b622-ca805689c34d-00-1nusdwsb1ve6x.worf.replit.dev/oauth2callback',
+        redirect_uri: 'https://bnkpassupdater.onrender.com/oauth2callback',
         access_type: 'offline',  // Ensures refresh token is returned
         prompt: 'consent'        // Forces consent screen to get refresh token
     });
