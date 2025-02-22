@@ -1,0 +1,10 @@
+https://app.clickup.com/9002128777/v/dc/8c935c9-716/8c935c9-376
+
+first update all the content in remote repo warning else local files will be deleted
+https://replit.com/@SubinBabuiphone/nodeJSMainLatest
+git init
+git remote add origin https://github.com/manthrayilsubin/nodeJSMainLatest.git
+git fetch origin
+git checkout main
+git clean  -d  -f .
+then open replit git
