@@ -7,7 +7,7 @@ const { Database } = require('@sqlitecloud/drivers');
 const app = express();
 const tblKey = process.env['tblKey']
 const db = new Database('sqlitecloud://ci35rlwsnz.sqlite.cloud:8860/'+tblKey);
-let htmlStr = 'Protion For Today:<br/>';
+let htmlStr = 'Portion For Today:<br/>';
 let htmlDatMal=""
 let verseCounter=1;
 let verseShowCounter=1;
@@ -58,15 +58,26 @@ app.get('/clearVerse', async (req, res) => {
     res.redirect('/getVerse');
 })
 
+app.get('/prevVerse', async (req, res) => {
+    verseCounter=verseCounter-2;
+    if(verseCounter<1)
+    verseCounter=1;
+    res.redirect('/getVerse');
+})
+
+app.get('/', async (req, res) => {
+    res.redirect('/getVerse');
+})
+
 app.get('/showVerse', async (req, res) => {
-    
+
     //refer this https://jsfiddle.net/subinbabu_009/o9Lujbw4/22/ for implementation
         const result = await db.sql`
         USE DATABASE malGreekNew; 
             SELECT * FROM "greekengmal where malgrk is not null ";`
         //jsonResult=JSON.parse(result)
         jsonResult=result
-    
+
 
     counter1=0;
     flag=0;
@@ -74,7 +85,7 @@ app.get('/showVerse', async (req, res) => {
     })
 
 app.get('/getVerse', async (req, res) => {
-    
+
     if(verseCounter==1)
     {
         const result = await db.sql`
@@ -133,7 +144,7 @@ app.get('/getVerse', async (req, res) => {
 
 
 
-    let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><br/>click on top of word to slice<br/><a href="getVerse">Next Verse</a><br/><a href="clearVerse">Clear Progress</a><br/>'
+    let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><br/>click on top of word to slice<br/><a href="getVerse">Next Verse</a><br/><a href="prevVerse">Prev Verse</a><br/><a href="clearVerse">Clear Progress</a><br/>'
     let htmlEnd='<script src="public/runscript.js"></script></body></html>'
 
     let htmlData='<p id="versePointer">#vrspointer</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><button id="svemalgrk">save Part</button>'
