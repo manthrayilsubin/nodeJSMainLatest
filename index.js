@@ -84,8 +84,47 @@ app.get('/showVerse', async (req, res) => {
 
     })
 
+app.get('/getBook', async (req, res) => 
+    {
+        booknum=1;
+        if(req.query.goBook)
+        {
+            booknum=req.query.goBook;
+        }
+    const result = await db.sql`
+        USE DATABASE malGreekNew; 
+            SELECT ROWID,* FROM "greekengmal" where book like ${booknum};`
+        //jsonResult=JSON.parse(result)
+        jsonResult=result
+        //console.log(jsonResult);
+        let htmlData='<html><head></head><body><h1>Book Verse(Praise The Lord)</h1><br/>'
+        let tickImage='<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYzS13QnFjTNZKKtFJ0OU4zc-R4zKVm7XKkQ&amp;s" style="width: 2%;">'
+        jsonResult.forEach(function(item) {
+
+            if(item.malgrk!=null && item.malgrk!="")
+            {
+            htmlData=htmlData+'<a href="/getVerse?goverse='+item.rowid+'" target="_blank">'+
+            "GoVerse"+'</a>'+item.Mal+tickImage+'<br/>';
+            }
+            else
+            {
+                htmlData=htmlData+'<a href="/getVerse?goverse='+item.rowid+'" target="_blank">'+
+                "GoVerse"+'</a>'+item.Mal+'<br/>';
+            }
+        })
+        htmlData=htmlData+'</body></html>';
+        htmlStr=htmlData;
+        mainappForHtmlServe(res);
+});
+
+
 app.get('/getVerse', async (req, res) => {
 
+    if(req.query.goverse) 
+    {
+        verseCounter = parseInt(req.query.goverse);
+    }
+    console.log("verseCounter="+verseCounter);
     if(verseCounter==1)
     {
         const result = await db.sql`
@@ -145,6 +184,7 @@ app.get('/getVerse', async (req, res) => {
 
 
     let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><br/>click on top of word to slice<br/><a href="getVerse">Next Verse</a><br/><a href="prevVerse">Prev Verse</a><br/><a href="clearVerse">Clear Progress</a><br/>'
+    htmlStart=htmlStart+'<a href="getBook?goBook=1">Go Book 1</a> <br/> <a href="getVerse?goVerse=2">Go to RowId Verse 2</a>  <br/>'
     let htmlEnd='<script src="public/runscript.js"></script></body></html>'
 
     let htmlData='<p id="versePointer">#vrspointer</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><button id="svemalgrk">save Part</button>'

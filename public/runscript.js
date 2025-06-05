@@ -48,6 +48,8 @@ $("#mal").click(function(){
 //alert("s");
 //alert(event.target.id);
 var targId=event.target.id;
+if(targId=="mal")
+    return;
 var finalId=""
 var targNum=targId.split("word");
 //alert(targNum[1])
