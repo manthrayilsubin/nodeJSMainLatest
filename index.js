@@ -99,17 +99,19 @@ app.get('/getBook', async (req, res) =>
         //console.log(jsonResult);
         let htmlData='<html><head></head><body><h1>Book Verse(Praise The Lord)</h1><br/>'
         let tickImage='<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYzS13QnFjTNZKKtFJ0OU4zc-R4zKVm7XKkQ&amp;s" style="width: 2%;">'
-        jsonResult.forEach(function(item) {
-
+      let   verseDetails=""
+          jsonResult.forEach(function(item) {
+            verseDetails=item.chapter+";"+item.verseNum
             if(item.malgrk!=null && item.malgrk!="")
             {
+                
             htmlData=htmlData+'<a href="/getVerse?goverse='+item.rowid+'" target="_blank">'+
-            "GoVerse"+'</a>'+item.Mal+tickImage+'<br/>';
+            "GoVerse "+verseDetails+'</a>'+item.Mal+tickImage+'<br/>';
             }
             else
             {
                 htmlData=htmlData+'<a href="/getVerse?goverse='+item.rowid+'" target="_blank">'+
-                "GoVerse"+'</a>'+item.Mal+'<br/>';
+                "GoVerse "+verseDetails+'</a>'+item.Mal+'<br/>';
             }
         })
         htmlData=htmlData+'</body></html>';
@@ -166,7 +168,8 @@ app.get('/getVerse', async (req, res) => {
                     wordIdCntr=i+1;
                     if(verseSplit[i]!="")
                 {
-                   indverse=verseSplitD[i].split("|"); 
+console.log(verseSplit[i]);
+console.log(verseSplitD[i]) ;                  indverse=verseSplitD[i].split("|"); 
 
                     grkVersewithNum=grkVersewithNum+'<span title="'+indverse[0]+'-'+indverse[2]+'">'+verseSplit[i]+'('+wordIdCntr+')|</span>';
                 }
