@@ -199,6 +199,25 @@ console.log(verseSplitD[i]) ;                  indverse=verseSplitD[i].split("|"
     mainappForHtmlServe(res);
 });
 app.use('/public', express.static(__dirname + '/public/'));
+
+//editStart
+app.get('/records', async (req, res) => {
+    try {
+        let verseId = 1
+        if(req.query.goverse) 
+            {
+            verseId = parseInt(req.query.goverse);
+            }
+            verseId = verseId || 1;
+        recId=verseId;
+        const rows = await db.sql(`USE DATABASE malGreekNew;SELECT ROWID,* FROM "greekengmal" where ROWID =  ${recId};`);
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });

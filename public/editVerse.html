@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Records Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .edit-btn, .save-btn { padding: 5px 10px; cursor: pointer; border: none; border-radius: 3px; }
+        .edit-btn { background-color: #4CAF50; color: white; }
+        .edit-btn:hover { background-color: #45a049; }
+        .save-btn { background-color: #008CBA; color: white; }
+        .save-btn:hover { background-color: #007399; }
+        .form-container { margin-bottom: 20px; }
+        input { margin: 5px; padding: 5px; width: 200px; }
+        button:not(.edit-btn):not(.save-btn) { padding: 5px 10px; background-color: #008CBA; color: white; border: none; border-radius: 3px; }
+        button:not(.edit-btn):not(.save-btn):hover { background-color: #007399; }
+        .edit-input { width: 90%; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Records Management</h2>
+    <div class="form-container">
+        <input type="text" id="mal" placeholder="Mal">
+        <button onclick="addRecord()">Add</button>
+    </div>
+    <table id="recordsTable">
+        <thead>
+            <tr>
+                <th>Row ID</th>
+                <th>Mal</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="recordsBody"></tbody>
+    </table>
+
+    <script>
+        // Fetch and display records
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetRowId = urlParams.get('goverse') ? parseInt(urlParams.get('goverse'), 10) : null;
+        async function fetchRecords() {
+            const response = await fetch('/records?goverse=' + (targetRowId || '1'));
+            const records = await response.json();
+            const tbody = document.getElementById('recordsBody');
+            tbody.innerHTML = '';
+            records.forEach(record => {
+                const row = document.createElement('tr');
+                row.setAttribute('data-rowid', record.rowid);
+                row.innerHTML = `
+                    <td>${record.rowid}</td>
+                    <td class="mal-cell">${record.Mal}</td>
+                    <td><button class="edit-btn" onclick="toggleEdit(${record.rowid}, this)">Edit</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Toggle row to edit mode
+        function toggleEdit(rowid, button) {
+            const row = button.closest('tr');
+            const isEditing = row.classList.contains('editing');
+
+            if (isEditing) {
+                // Save changes
+                const malInput = row.querySelector('input[name="mal"]');
+                const mal = malInput.value;
+
+                if (!mal) {
+                    alert('Please fill in the Mal field');
+                    return;
+                }
+
+                saveRecord(rowid, mal, row, button);
+            } else {
+                // Enter edit mode
+                const malCell = row.querySelector('.mal-cell');
+                const mal = malCell.textContent;
+
+                malCell.innerHTML = `<input class="edit-input" name="mal" value="${mal}" />`;
+                button.textContent = 'Save';
+                button.className = 'save-btn';
+                row.classList.add('editing');
+            }
+        }
+
+        // Save edited record
+        async function saveRecord(rowid, mal, row, button) {
+            try {
+                const response = await fetch(`/records/${rowid}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Mal: mal })
+                });
+                if (!response.ok) throw new Error('Failed to save record');
+                
+                // Exit edit mode
+                row.querySelector('.mal-cell').textContent = mal;
+                button.textContent = 'Edit';
+                button.className = 'edit-btn';
+                row.classList.remove('editing');
+            } catch (error) {
+                alert('Error saving record: ' + error.message);
+            }
+        }
+
+        // Add new record
+        async function addRecord() {
+            const mal = document.getElementById('mal').value;
+
+            if (!mal) {
+                alert('Please fill in the Mal field');
+                return;
+            }
+
+            try {
+                const response = await fetch('/records', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Mal: mal })
+                });
+                if (!response.ok) throw new Error('Failed to add record');
+                
+                // Reset form and refresh table
+                document.getElementById('mal').value = '';
+                fetchRecords();
+            } catch (error) {
+                alert('Error adding record: ' + error.message);
+            }
+        }
+
+        // Initial load
+        fetchRecords();
+    </script>
+</body>
+</html>
