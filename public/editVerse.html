@@ -22,11 +22,10 @@
     </style>
 </head>
 <body>
-    <h2>Records Management</h2>
-    <div class="form-container">
-        <input type="text" id="mal" placeholder="Mal">
-        <button onclick="addRecord()">Add</button>
-    </div>
+    <h2>verseUpdate Management</h2>
+    <h3><div id="greekVerse"></div></h3>
+    <a id="prevLink" href="/public/editVerse.html?goverse=1">Prev</a>
+    <a id="nextLink" href="/public/editVerse.html?goverse=2">Next</a>
     <table id="recordsTable">
         <thead>
             <tr>
@@ -42,12 +41,15 @@
         // Fetch and display records
         const urlParams = new URLSearchParams(window.location.search);
         const targetRowId = urlParams.get('goverse') ? parseInt(urlParams.get('goverse'), 10) : null;
+        document.getElementById('prevLink').href = '/public/editVerse.html?goverse=' + (targetRowId ? targetRowId - 1 : 1);
+        document.getElementById('nextLink').href = '/public/editVerse.html?goverse=' + (targetRowId ? targetRowId + 1 : 2);
         async function fetchRecords() {
             const response = await fetch('/records?goverse=' + (targetRowId || '1'));
             const records = await response.json();
             const tbody = document.getElementById('recordsBody');
             tbody.innerHTML = '';
             records.forEach(record => {
+                document.getElementById('greekVerse').textContent = record.GreekV || 'No Greek Verse available';
                 const row = document.createElement('tr');
                 row.setAttribute('data-rowid', record.rowid);
                 row.innerHTML = `

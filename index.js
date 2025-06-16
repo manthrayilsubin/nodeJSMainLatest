@@ -5,6 +5,8 @@ const express = require('express');
 const { Database } = require('@sqlitecloud/drivers');
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const tblKey = process.env['tblKey']
 const db = new Database('sqlitecloud://ci35rlwsnz.sqlite.cloud:8860/'+tblKey);
 let htmlStr = 'Portion For Today:<br/>';
@@ -104,7 +106,7 @@ app.get('/getBook', async (req, res) =>
             verseDetails=item.chapter+";"+item.verseNum
             if(item.malgrk!=null && item.malgrk!="")
             {
-                
+
             htmlData=htmlData+'<a href="/getVerse?goverse='+item.rowid+'" target="_blank">'+
             "GoVerse "+verseDetails+'</a>'+item.Mal+tickImage+'<br/>';
             }
@@ -217,7 +219,36 @@ app.get('/records', async (req, res) => {
     }
 });
 
+// Update record
+    app.put('/records/:rowid', async (req, res) => {
+        //console.log(req.body)
+        //return;
+        const { Mal } = req.body;
+        if(req.body.Mal)
+            updateMal=req.body.Mal;
+        console.log({Mal})
+        console.log(Mal)
+        
+        const { rowid } = req.params;
+        console.log(rowid)
+        //return;
+        try {
+            const result = await db.sql(`USE DATABASE malGreekNew;UPDATE greekengmal SET Mal='${updateMal}' WHERE ROWID = ${rowid};`);
+            console.log(result)
+            res.json({ updated: result.changes });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    });
 
 app.listen(3000, () => {
   console.log('Server running on port 3000');
+});
+// Close database connection on server shutdown
+process.on('SIGINT', async () => {
+    if (db) {
+        await db.close();
+        console.log('Database connection closed.');
+    }
+    process.exit(0);
 });
