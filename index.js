@@ -51,7 +51,7 @@ app.get('/updateMalParts', async (req, res) => {
     USE DATABASE malGreekNew;`
     //db.sql(,);
     const result2=await db.sql(`update "greekengmal" set malgrk ="${malParts}" where book ="${vrspntrparts[0]}" and chapter="${vrspntrparts[1]}" and verseNum="${vrspntrparts[2]}";`)
-    console.log(result2)
+    //console.log(result2)
     res.end();
 });
 
@@ -170,8 +170,9 @@ app.get('/getVerse', async (req, res) => {
                     wordIdCntr=i+1;
                     if(verseSplit[i]!="")
                 {
-console.log(verseSplit[i]);
-console.log(verseSplitD[i]) ;                  indverse=verseSplitD[i].split("|"); 
+                   // console.log(verseSplit[i]);
+                   // console.log(verseSplitD[i]) ;
+                    indverse=verseSplitD[i].split("|");
 
                     grkVersewithNum=grkVersewithNum+'<span title="'+indverse[0]+'-'+indverse[2]+'">'+verseSplit[i]+'('+wordIdCntr+')|</span>';
                 }
@@ -192,7 +193,7 @@ console.log(verseSplitD[i]) ;                  indverse=verseSplitD[i].split("|"
     htmlStart=htmlStart+'<a href="getBook?goBook=1">Go Book 1</a> <br/> <a href="getVerse?goVerse=2">Go to RowId Verse 2</a>  <br/>'
     let htmlEnd='<script src="public/runscript.js"></script></body></html>'
 
-    let htmlData='<p id="versePointer">#vrspointer</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><button id="svemalgrk">save Part</button>'
+    let htmlData='<p id="versePointer">#vrspointer</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><button id="svemalgrk">save Part</button><div id="saveResp"></div>';
     htmlData=htmlData.replace("#spnData",htmlDatMal);
     htmlData=htmlData.replace("#grkVerse",spnDatagrk);
     htmlData=htmlData.replace("#vrspointer",versepointer)
@@ -226,9 +227,9 @@ app.get('/records', async (req, res) => {
         const { Mal } = req.body;
         if(req.body.Mal)
             updateMal=req.body.Mal;
-        console.log({Mal})
-        console.log(Mal)
-        
+        //console.log({Mal})
+        //console.log(Mal)
+
         const { rowid } = req.params;
         console.log(rowid)
         //return;

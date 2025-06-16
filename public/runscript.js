@@ -38,6 +38,7 @@ $("#svemalgrk").click(function(){
      },
      success: function(response) {
        //Do Something
+       document.getElementById("saveResp").innerHTML="saveComplete";
      },
      error: function(xhr) {
        alert("error in save please retry");
