@@ -107,12 +107,12 @@ app.get('/getBook', async (req, res) =>
             if(item.malgrk!=null && item.malgrk!="")
             {
 
-            htmlData=htmlData+'<a href="/getVerse?goverse='+item.rowid+'" target="_blank">'+
+            htmlData=htmlData+'<a href="/public/editVerse.html?goverse='+item.rowid+'" target="_blank">'+
             "GoVerse "+verseDetails+'</a>'+item.Mal+tickImage+'<br/>';
             }
             else
             {
-                htmlData=htmlData+'<a href="/getVerse?goverse='+item.rowid+'" target="_blank">'+
+                htmlData=htmlData+'<a href="/public/editVerse.html?goverse='+item.rowid+'" target="_blank">'+
                 "GoVerse "+verseDetails+'</a>'+item.Mal+'<br/>';
             }
         })
@@ -252,4 +252,97 @@ process.on('SIGINT', async () => {
         console.log('Database connection closed.');
     }
     process.exit(0);
+});
+
+// Function to generate HTML with Flexbox layout
+const generateHtml = (data) => `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malayalam Greek Map</title>
+  <style>
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      width: 100%;
+    }
+    .cell {
+      padding: 3px;
+      flex: 0 0 auto;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      white-space: nowrap; /* Prevents wrapping */
+    }
+  </style>
+</head>
+<body>
+  ${data
+    .map(
+      (row) => `
+    <div class="row">
+      ${row
+        .map(
+          (cell) => `
+      <div class="cell">${cell}</div>
+      `
+        )
+        .join('')}
+    </div>
+  `
+    )
+    .join('')}
+</body>
+</html>
+`;
+
+app.get('/malgreek', async (req, res) => {
+    let verseId = 1
+    if(req.query.goverse) 
+            {
+            verseId = parseInt(req.query.goverse);
+            }
+            verseId = verseId || 1;
+        recId=verseId;
+        const rows = await db.sql(`USE DATABASE malGreekNew;SELECT ROWID,* FROM "greekengmal" where ROWID =  ${recId};`);
+        greekV= rows[0].GreekV;
+        malgrk= rows[0].malgrk;
+        if(malgrk==null || malgrk=="")
+        {
+            res.status(404).send('No malgrk found for this verse');
+            return;
+        }
+        malgrkArr=malgrk.split("|");
+        greekVArr=greekV.split("|");
+        outArray=[];
+    twoDArr=[]
+    twoDArr[0]=[]
+    counter=0;
+        let greekPart, greekPartNums, greekEq="";
+        for (let i = 0; i < malgrkArr.length; i++) 
+            {
+
+                if(malgrkArr[i]=="")
+                    break;
+            greekPart=malgrkArr[i].split("#");
+            greekPartNums=greekPart[1].split(",");
+                console.log(greekPartNums)
+            greekEq="";
+            for(let j = 0; j < greekPartNums.length; j++) 
+                {
+                    greekPartNums[j] = greekPartNums[j].trim();
+                greekEq=greekEq+" "+greekVArr[greekPartNums[j]-1];
+
+
+                }
+                outArray.push({
+                        mal: greekPart[0].trim(),
+                        greek: greekEq.trimStart()
+                    });
+                twoDArr[0][counter]=greekPart[0].trim()+"<br/> "+greekEq.trimStart();
+                counter=counter+1;
+        }
+        res.status(200).send(generateHtml(twoDArr));
 });
