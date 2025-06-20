@@ -109,13 +109,15 @@ app.get('/getBook', async (req, res) =>
 
             htmlData=htmlData+'<a href="/public/editVerse.html?goverse='+item.rowid+'" target="_blank">'+
             "UpdateMalVerse "+verseDetails+'</a>'+'<a href="malgreek?goverse='+item.rowid+'" target="_blank">'+
-            "malGreek "+verseDetails+'</a>'+item.Mal+tickImage+'<br/>';
+            "malGreek "+verseDetails+'</a>'+'<a href="getVerse?goverse='+item.rowid+'" target="_blank">'+
+                    "GoVerse "+verseDetails+'</a>'+item.Mal+tickImage+'<br/>';
             }
             else
             {
                 htmlData=htmlData+'<a href="/public/editVerse.html?goverse='+item.rowid+'" target="_blank">'+
             "UpdateMalVerse "+verseDetails+'</a>'+'<a href="malgreek?goverse='+item.rowid+'" target="_blank">'+
-            "malGreek "+verseDetails+'</a>'+item.Mal+'<br/>';
+            "malGreek "+verseDetails+'</a>'+'<a href="getVerse?goverse='+item.rowid+'" target="_blank">'+
+                        "GoVerse "+verseDetails+'</a>'+item.Mal+'<br/>';
             }
         })
         htmlData=htmlData+'</body></html>';
@@ -196,10 +198,10 @@ app.get('/getVerse', async (req, res) => {
 
 
     let htmlStart='<html><head></head><body><h1>Mal Greek Parser(Praise The Lord)</h1><br/>click on top of word to slice<br/><a href="getVerse">Next Verse</a><br/><a href="prevVerse">Prev Verse</a><br/><a href="clearVerse">Clear Progress</a><br/>'
-    htmlStart=htmlStart+'<a href="getBook?goBook=1">Go Book 1</a> <br/> <a href="getVerse?goVerse=2">Go to RowId Verse 2</a>  <br/>'
+    htmlStart=htmlStart+'<a href="getBook?goBook=1">Go Book 1</a> <br/> <a href="getVerse?goverse=2">Go to RowId Verse 2</a>  <br/>'
     let htmlEnd='<script src="public/runscript.js"></script></body></html>'
 
-    let htmlData='<p id="versePointer">#vrspointer</p><p id="malMap">#malMap</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><button id="svemalgrk">save Part</button><div id="saveResp"></div>';
+    let htmlData='<p id="versePointer">#vrspointer</p><p id="malMap">#malMap</p><p id="greek" style="font-size: xx-large;font-weight: bold;"><button id="btntoggle">toggleDetails</button><br/>#grkVerse</p><p id="mal">#spnData</p><p id="malpart"></p><div id="saveResp"><button id="svemalgrk">save Part</button></div>';
     htmlData=htmlData.replace("#spnData",htmlDatMal);
     htmlData=htmlData.replace("#grkVerse",spnDatagrk);
     htmlData=htmlData.replace("#vrspointer",versepointer)
