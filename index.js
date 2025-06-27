@@ -50,7 +50,7 @@ app.get('/updateMalParts', async (req, res) => {
     const result = await db.sql`
     USE DATABASE malGreekNew;`
     //db.sql(,);
-    const result2=await db.sql(`update "greekengmal" set malgrk ="${malParts}" where book ="${vrspntrparts[0]}" and chapter="${vrspntrparts[1]}" and verseNum="${vrspntrparts[2]}";`)
+    const result2=await db.sql(`update "greekengmal" set malmap ="${malParts}" where book ="${vrspntrparts[0]}" and chapter="${vrspntrparts[1]}" and verseNum="${vrspntrparts[2]}";`)
     //console.log(result2)
     res.end();
 });
@@ -104,7 +104,7 @@ app.get('/getBook', async (req, res) =>
       let   verseDetails=""
           jsonResult.forEach(function(item) {
             verseDetails=item.chapter+";"+item.verseNum
-            if(item.malgrk!=null && item.malgrk!="")
+            if(item.malmap!=null && item.malmap!="")
             {
 
             htmlData=htmlData+'<a href="/public/editVerse.html?goverse='+item.rowid+'" target="_blank">'+
@@ -153,10 +153,10 @@ app.get('/getVerse', async (req, res) => {
         if(counter1==verseCounter)
         {
             malVerse=item.Mal;
-            grkVerse=item.GreekV;
+            grkVerse=item.OriginalV;
             grkVerseD=item.verse;
             grkVersewithNum="";
-            malgrk=item.malgrk;
+            malgrk=item.malmap;
             if(malgrk==null || malgrk=="")
                 malgrk="mapping not done";
 
@@ -315,8 +315,8 @@ app.get('/malgreek', async (req, res) => {
             verseId = verseId || 1;
         recId=verseId;
         const rows = await db.sql(`USE DATABASE malGreekNew;SELECT ROWID,* FROM "greekengmal" where ROWID =  ${recId};`);
-        greekV= rows[0].GreekV;
-        malgrk= rows[0].malgrk;
+        greekV= rows[0].OriginalV;
+        malgrk= rows[0].malmap;
         if(malgrk==null || malgrk=="")
         {
             res.status(404).send('No malgrk found for this verse');
