@@ -14,6 +14,7 @@ let htmlDatMal=""
 let verseCounter=1;
 let verseShowCounter=1;
 let versepointer="";
+let goBookInitialRowId=0;
 let htmljquery='<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>';
 let htmljqueryui='<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"></script>';
 let htmlcss='<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/smoothness/jquery-ui.css">';
@@ -95,15 +96,19 @@ app.get('/getBook', async (req, res) =>
         }
     const result = await db.sql`
         USE DATABASE malGreekNew; 
-            SELECT ROWID,* FROM "greekengmal" where book like ${booknum};`
+            SELECT ROWID,* FROM "greekengmal" where book like ${booknum} order by ROWID;`
         //jsonResult=JSON.parse(result)
         jsonResult=result
         //console.log(jsonResult);
         let htmlData='<html><head></head><body><h1>Book Verse(Praise The Lord)</h1><br/>'
         let tickImage='<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYzS13QnFjTNZKKtFJ0OU4zc-R4zKVm7XKkQ&amp;s" style="width: 2%;">'
       let   verseDetails=""
+        let rowCounter=1;
           jsonResult.forEach(function(item) {
-            verseDetails=item.chapter+";"+item.verseNum
+            if(rowCounter==1)
+                goBookInitialRowId=item.rowid;
+                rowCounter=rowCounter+1;
+                verseDetails=item.chapter+";"+item.verseNum
             if(item.malmap!=null && item.malmap!="")
             {
 
@@ -132,14 +137,17 @@ app.get('/getVerse', async (req, res) => {
     {
         verseCounter = parseInt(req.query.goverse);
     }
+    
+        
     console.log("verseCounter="+verseCounter);
-    if(verseCounter==1)
+    if(verseCounter==1 || goBookInitialRowId>100)
     {
         const result = await db.sql`
         USE DATABASE malGreekNew; 
             SELECT * FROM "greekengmal";`
         //jsonResult=JSON.parse(result)
         jsonResult=result
+        goBookInitialRowId=0;
     }
 
     counter1=0;
