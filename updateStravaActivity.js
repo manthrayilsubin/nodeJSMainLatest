@@ -1,7 +1,9 @@
 //require('dotenv').config();
+const express = require('express');
 const strava = require('strava-v3');
 const axios = require('axios');
-
+const app = express();
+const port = process.env.PORT || 3000;
 // Configuration from environment variables
 const clientId = process.env.STRAVA_CLIENT_ID;
 const clientSecret = process.env.STRAVA_CLIENT_SECRET;
@@ -101,6 +103,15 @@ async function main() {
     console.error('Error in main process:', error.message);
   }
 }
-
+app.get('/update-activities', async (req, res) => {
 // Run the script
 main();
+  res.json({
+    status: 'success'
+  });
+});
+// Start the server
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Trigger updates at http://localhost:${port}/update-activities`);
+});
