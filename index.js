@@ -1,6 +1,6 @@
 //button to clear out part mal if any issues;
 //save button implementation done partially need to do feedback success and alert if needed.
-
+const port = process.env.PORT || 3000;
 const express = require('express');
 const { Database } = require('@sqlitecloud/drivers');
 
@@ -258,7 +258,7 @@ app.get('/records', async (req, res) => {
         }
     });
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('Server running on port 3000');
 });
 // Close database connection on server shutdown
