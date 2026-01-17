@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= reference %> - Multiple Versions</title>
+  <style>
+    * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Georgia, serif;
+        margin: 0;
+        //padding: 20px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+       // line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+      }
+
+      h1 {
+        text-align: center;
+        padding: 30px 20px;
+        margin: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+      }
+
+      .reference {
+        text-align: center;
+        padding: 20px;
+        background: #f8f9ff;
+        font-size: 1.2rem;
+        color: #555;
+        border-bottom: 1px solid #eee;
+      }
+
+      .table-wrapper {
+      max-height: 100vh;
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+      overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+        background: white;
+      }
+      tr 
+    {
+    border-bottom: 2px solid #dee2e6;
+    }
+    td
+    {
+    border-right: 1px solid #dee2e6;
+    }
+      thead th {
+        //padding: 18px 12px;
+        text-align: center;
+        font-weight: 600;
+        color: #333;
+        border-bottom: 3px solid #dee2e6;
+        white-space: nowrap;
+      }
+    /* Make header sticky */
+      thead th {
+        position: sticky !important;
+        top: 0;
+        z-index: 10 !important;
+        background: #f8f9fa !important;
+      }
+
+      th:first-child {
+        background: #e9ecef;
+        width: 60px;
+        min-width: 60px;
+      }
+
+      td {
+        padding: 16px 12px;
+        border-bottom: 1px solid #f1f3f4;
+        vertical-align: top;
+        word-wrap: break-word;
+        max-width: 0;
+      }
+
+      .verse-num {
+        background: #f8f9fa;
+        color: #dc3545;
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.1em;
+        padding: 16px 8px !important;
+        border-right: 3px solid #dee2e6;
+        position: sticky;
+        left: 0;
+        z-index: 5;
+        min-width: 60px;
+        width: 60px;
+      }
+
+      tr:hover {
+        background: #f8f9ff;
+      }
+
+      tr:nth-child(even) {
+        background: #fafbfc;
+      }
+
+      /* Mobile: Stack layout */
+      @media (max-width: 768px) {
+        .desktop-only {
+          display: none;
+        }
+
+        th:nth-child(n+2), td:nth-child(n+2) {
+          display: none;
+        }
+
+        .verse-num {
+          font-size: 1.3em;
+          padding: 20px 12px !important;
+        }
+
+        td {
+          padding: 20px 16px;
+          font-size: 1.1em;
+        }
+
+        .mobile-header {
+          display: block;
+          font-weight: bold;
+          font-size: 1rem;
+          color: #495057;
+          margin-bottom: 8px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+        }
+
+        h1 {
+          padding: 20px 15px;
+        }
+
+        .reference {
+          font-size: 1.1rem;
+          padding: 15px;
+        }
+      }
+
+      .empty {
+        font-style: italic;
+        color: #adb5bd;
+        text-align: center;
+      }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th class="verse-num"><%= reference %> Verse</th>
+          <% versions.forEach(v => { %>
+            <th class="version-header"><%= v.name %> (<%= v.abbr %>)</th>
+          <% }) %>
+        </tr>
+      </thead>
+      <tbody>
+        <% verses.forEach(verse => { %>
+          <tr>
+            <td class="verse-num"><%= verse.number %></td>
+            <td><%= verse.KJV %></td>
+            <td><%= verse.NIV %></td>
+            <td><%= verse.ESV %></td>
+            <td><%= verse.NLT %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+</body>
+</html>

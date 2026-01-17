@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= reference %> - Multiple Versions</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: #1e40af;
+      margin-bottom: 1.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    th {
+      background: #1e40af;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .verse-num {
+      font-weight: bold;
+      color: #1e40af;
+      width: 60px;
+      text-align: right;
+      padding-right: 12px;
+    }
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    .version-header {
+      text-align: center;
+      font-weight: 600;
+    }
+    @media (max-width: 900px) {
+      table { font-size: 0.95rem; }
+      th, td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1><%= reference %></h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="verse-num">Verse</th>
+          <% versions.forEach(v => { %>
+            <th class="version-header"><%= v.name %> (<%= v.abbr %>)</th>
+          <% }) %>
+        </tr>
+      </thead>
+      <tbody>
+        <% verses.forEach(verse => { %>
+          <tr>
+            <td class="verse-num"><%= verse.number %></td>
+            <td><%= verse.KJV %></td>
+            <td><%= verse.NIV %></td>
+            <td><%= verse.ESV %></td>
+            <td><%= verse.NLT %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

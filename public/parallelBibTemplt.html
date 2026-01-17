@@ -1,0 +1,309 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Bible Chapter Table - 4 Translations</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Georgia, serif;
+      margin: 0;
+      //padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 30px 20px;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .reference {
+      text-align: center;
+      padding: 20px;
+      background: #f8f9ff;
+      font-size: 1.2rem;
+      color: #555;
+      border-bottom: 1px solid #eee;
+    }
+
+    .table-wrapper {
+    max-height: 100%;
+      overflow-x: auto;
+    overflow: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+      background: white;
+    }
+    tr 
+  {
+  border-bottom: 2px solid #dee2e6;
+  }
+  td
+  {
+  border-right: 1px solid #dee2e6;
+  }
+    thead th {
+      //padding: 18px 12px;
+      text-align: center;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 3px solid #dee2e6;
+      white-space: nowrap;
+    }
+  /* Make header sticky */
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #f8f9fa; /* must have background for proper rendering */
+
+    th:first-child {
+      background: #e9ecef;
+      width: 60px;
+      min-width: 60px;
+    }
+
+    td {
+      padding: 16px 12px;
+      border-bottom: 1px solid #f1f3f4;
+      vertical-align: top;
+      word-wrap: break-word;
+      max-width: 0;
+    }
+
+    .verse-num {
+      background: #f8f9fa;
+      color: #dc3545;
+      font-weight: bold;
+      text-align: center;
+      font-size: 1.1em;
+      padding: 16px 8px !important;
+      border-right: 3px solid #dee2e6;
+      position: sticky;
+      left: 0;
+      z-index: 5;
+      min-width: 60px;
+      width: 60px;
+    }
+
+    tr:hover {
+      background: #f8f9ff;
+    }
+
+    tr:nth-child(even) {
+      background: #fafbfc;
+    }
+
+    /* Mobile: Stack layout */
+    @media (max-width: 768px) {
+      .desktop-only {
+        display: none;
+      }
+
+      th:nth-child(n+2), td:nth-child(n+2) {
+        display: none;
+      }
+
+      .verse-num {
+        font-size: 1.3em;
+        padding: 20px 12px !important;
+      }
+
+      td {
+        padding: 20px 16px;
+        font-size: 1.1em;
+      }
+
+      .mobile-header {
+        display: block;
+        font-weight: bold;
+        font-size: 1rem;
+        color: #495057;
+        margin-bottom: 8px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      h1 {
+        padding: 20px 15px;
+      }
+
+      .reference {
+        font-size: 1.1rem;
+        padding: 15px;
+      }
+    }
+
+    .empty {
+      font-style: italic;
+      color: #adb5bd;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Verse</th>
+            <th class="desktop-only">KJV</th>
+            <th class="desktop-only">WEB</th>
+            <th class="desktop-only">ASV</th>
+            <th class="desktop-only">YLT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+          <tr>
+            <td class="verse-num">2</td>
+            <td class="desktop-only">The same came to Jesus by night, and said unto him, Rabbi, we know that thou art a teacher come from God: for no man can do these miracles that thou doest, except God be with him.</td>
+            <td class="desktop-only">The same came to him by night, and said to him, "Rabbi, we know that you are a teacher come from God, for no one can do these signs that you do, unless God is with him."</td>
+            <td class="desktop-only">the same came unto him by night, and said to him, Rabbi, we know that thou art a teacher come from God; for no one can do these signs that thou doest, except God be with him.</td>
+            <td class="desktop-only">43,4,5,അങ്ങനെ അവൻ സുഖാർ എന്നൊരു ശമര്യപട്ടണത്തിൽ യാക്കോബ് തൻ്റെ പുത്രനായയോസേഫിന്നു കൊടുത്ത നിലത്തിന്നരികെ എത്തി.</td>
+          </tr>
+          <tr>
+            <td class="verse-num">3</td>
+            <td class="desktop-only">Jesus answered and said unto him, Verily, verily, I say unto thee, Except a man be born again, he cannot see the kingdom of God.</td>
+            <td class="desktop-only">Jesus answered him, "Most certainly, I tell you, unless one is born anew, he can't see God's Kingdom."</td>
+            <td class="desktop-only">Jesus answered and said unto him, Verily, verily, I say unto thee, Except one be born anew, he cannot see the kingdom of God.</td>
+            <td class="desktop-only">Jesus answered and said to him, 'Verily, verily, I say to thee, If any one may not be born from above, he is not able to see the reign of God;'</td>
+          </tr>
+          <!-- Add more rows as needed -->
+          <tr>
+            <td class="verse-num">16</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.</td>
+            <td class="desktop-only">for God did so love the world, that His Son -- the only begotten -- He gave, that every one who is believing in him may not perish, but may have life age-during.</td>
+          </tr>
+      <tr>
+            <td class="verse-num">16</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.</td>
+            <td class="desktop-only">for God did so love the world, that His Son -- the only begotten -- He gave, that every one who is believing in him may not perish, but may have life age-during.</td>
+          </tr>
+      <tr>
+            <td class="verse-num">16</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.</td>
+            <td class="desktop-only">for God did so love the world, that His Son -- the only begotten -- He gave, that every one who is believing in him may not perish, but may have life age-during.</td>
+          </tr>
+      <tr>
+            <td class="verse-num">16</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.</td>
+            <td class="desktop-only">for God did so love the world, that His Son -- the only begotten -- He gave, that every one who is believing in him may not perish, but may have life age-during.</td>
+          </tr>
+      <tr>
+            <td class="verse-num">16</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.</td>
+            <td class="desktop-only">for God did so love the world, that His Son -- the only begotten -- He gave, that every one who is believing in him may not perish, but may have life age-during.</td>
+          </tr>
+      <tr>
+            <td class="verse-num">16</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.</td>
+            <td class="desktop-only">for God did so love the world, that His Son -- the only begotten -- He gave, that every one who is believing in him may not perish, but may have life age-during.</td>
+          </tr>
+      <tr>
+            <td class="verse-num">16</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.</td>
+            <td class="desktop-only">For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.</td>
+            <td class="desktop-only">for God did so love the world, that His Son -- the only begotten -- He gave, that every one who is believing in him may not perish, but may have life age-during.</td>
+          </tr>
+       <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+       <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+       <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+       <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+       <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+       <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+       <tr>
+            <td class="verse-num">1</td>
+            <td class="desktop-only">There was a man of the Pharisees, named Nicodemus, a ruler of the Jews</td>
+            <td class="desktop-only">Now there was a man of the Pharisees named Nicodemus, a ruler of the Jews.</td>
+            <td class="desktop-only">Now there was a man of the Pharisees, named Nicodemus, a ruler of the Jews:</td>
+            <td class="desktop-only">43,3,31,മേലിൽ നിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവൻ; ഭൂമിയിൽ നിന്നുള്ളവൻ ഭൌമികൻ ആകുന്നു; ഭൌമികമായതു സംസാരിക്കുന്നു; സ്വർഗ്ഗത്തിൽനിന്നു വരുന്നവൻ എല്ലാവർക്കും മീതെയുള്ളവനായി താൻ കാൺകെയും കേൾക്കയും ചെയ്തതു സാക്ഷീകരിക്കുന്നു;</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body></html>
