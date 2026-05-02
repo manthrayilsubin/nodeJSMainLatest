@@ -323,6 +323,8 @@ app.get('/malgreek', async (req, res) => {
             verseId = verseId || 1;
         recId=verseId;
         const rows = await db.sql(`USE DATABASE malGreekNew;SELECT ROWID,* FROM "greekengmal" where ROWID =  ${recId};`);
+    console.log(rows);
+        verseDef=rows[0].verse
         greekV= rows[0].OriginalV;
         malgrk= rows[0].malmap;
         if(malgrk==null || malgrk=="")
@@ -332,6 +334,7 @@ app.get('/malgreek', async (req, res) => {
         }
         malgrkArr=malgrk.split("|");
         greekVArr=greekV.split("|");
+        verseDefArr=verseDef.split(";")
         outArray=[];
     twoDArr=[]
     twoDArr[0]=[]
@@ -349,7 +352,13 @@ app.get('/malgreek', async (req, res) => {
             for(let j = 0; j < greekPartNums.length; j++) 
                 {
                     greekPartNums[j] = greekPartNums[j].trim();
-                greekEq=greekEq+" "+greekVArr[greekPartNums[j]-1];
+                    if(greekPartNums[j]!="")
+                    {
+                        verseDefSel=verseDefArr[greekPartNums[j]-1].split("|")
+                        greekEq=greekEq+" "+greekVArr[greekPartNums[j]-1]+"("+verseDefSel[0]+"-"+verseDefSel[2]+")";
+                        
+                    }
+                        
 
 
                 }
