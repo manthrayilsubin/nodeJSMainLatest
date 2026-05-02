@@ -114,14 +114,14 @@ app.get('/getBook', async (req, res) =>
 
             htmlData=htmlData+'<a href="/public/editVerse.html?goverse='+item.rowid+'" target="_blank">'+
             "UpdateMalVerse "+verseDetails+'</a>'+'<a href="malgreek?goverse='+item.rowid+'" target="_blank">'+
-            "malGreek "+verseDetails+'</a>'+'<a href="getVerse?goverse='+item.rowid+'" target="_blank">'+
+            "malMap "+verseDetails+'</a>'+'<a href="getVerse?goverse='+item.rowid+'" target="_blank">'+
                     "GoVerse "+verseDetails+'</a>'+item.Mal+tickImage+'<br/>';
             }
             else
             {
                 htmlData=htmlData+'<a href="/public/editVerse.html?goverse='+item.rowid+'" target="_blank">'+
             "UpdateMalVerse "+verseDetails+'</a>'+'<a href="malgreek?goverse='+item.rowid+'" target="_blank">'+
-            "malGreek "+verseDetails+'</a>'+'<a href="getVerse?goverse='+item.rowid+'" target="_blank">'+
+            "malMap "+verseDetails+'</a>'+'<a href="getVerse?goverse='+item.rowid+'" target="_blank">'+
                         "GoVerse "+verseDetails+'</a>'+item.Mal+'<br/>';
             }
         })
